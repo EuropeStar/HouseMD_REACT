@@ -1,0 +1,383 @@
+#title-site {
+    color: white;
+    margin-top: 20px;
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: inherit;
+    color: inherit;
+}
+
+body {
+    color: #2d2d2d;
+    background-color: #d2deef;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 300;
+}
+
+form {
+    margin-bottom: 0 !important;
+}
+
+a:hover {
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+.material {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.material-card {
+    background-color: white;
+}
+
+.material-card:hover, .material-card:focus-within {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.material-btn:hover {
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
+}
+
+.blue {
+    background-color: #a0d1ff;
+}
+
+.field {
+    margin: auto;
+    margin-bottom: 10px;
+    font-size: 18px;;
+    border-radius: 2px;
+    padding: 6px 6px;
+    outline-style: none !important;
+}
+
+.form-lbl {
+    font-size: 20px;
+}
+
+.access {
+    background-color: #31b74e;
+}
+
+.access:hover {
+    background-color: forestgreen;
+}
+
+.m-btn {
+    min-width: 180px;
+    min-height: 40px;
+    width: auto;
+    height: auto;
+    font-size: 19px;
+    text-transform: uppercase;
+    border-color: transparent;
+    color: white;
+}
+
+.link {
+    font-size: 18px;
+    margin-left: 10%;
+    color: blue !important;
+    -webkit-transition: linear 0.5s;
+    -moz-transition: linear 0.5s;
+    -ms-transition: linear 0.5s;
+    -o-transition: linear 0.5s;
+    transition: linear 0.5s;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.mt {
+    margin-top: 20px;
+}
+
+.option-list {
+    list-style: none;
+    padding-left: 0 !important;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.option-list li {
+    width: auto;
+    float: none;
+    margin: auto;;
+}
+
+.linear {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0px 10px;
+}
+
+.m-form {
+    padding: 32px 35px 20px 30px;
+    border-radius: 6px;
+}
+
+.full-h {
+    height: 100%;
+}
+
+.centered {
+    display: block;
+    margin: auto;
+}
+
+.text-centered {
+    text-align: center;
+}
+
+#profile-view {
+    margin-top: 50px;
+}
+
+#prof-image {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    display: block;
+    border-radius: 50%;
+}
+
+#toolbar-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 140px;
+    background-color: cornflowerblue;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#toolbar {
+    margin: auto;
+    overflow-x: hidden;
+    color: white;
+}
+
+#nickname-tb {
+    color: white;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 23px;
+    overflow: hidden;
+}
+
+.tb-i {
+    color: white;
+    font-size: 43px ;
+    text-align: center;
+}
+
+#toolbar-btns {
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+#toolbar-btns li {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 2px;
+    list-style: none;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+#toolbar-btns li:hover {
+    background-color: #1482d9;
+}
+
+#loading {
+    position: relative;
+    width: 100%;
+    min-width: 50px;
+    min-height: 24px;
+    height: 100%;
+    background: url('../static/loader.gif') no-repeat center center;
+}
+
+#loading2 {
+    position: relative;
+    width: 100%;
+    min-width: 50px;
+    min-height: 24px;
+    height: 100%;
+    background: url("../static/66 (8).gif") no-repeat center center;
+}
+
+#loading3 {
+    position: relative;
+    width: 100%;
+    min-width: 50px;
+    min-height: 24px;
+    height: 100%;
+    background: url("../static/load.gif") no-repeat center center;
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.active {
+    background-color: #1c7cd9;
+}
+
+.list-line {
+    height: 1px;
+    background-color: #c2c2c2;
+    width: 100%;
+    margin-top: 20px;
+
+}
+
+.research-item {
+    display: flex;
+    padding: 19px 15px 15px;
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    -ms-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+}
+
+.research-item:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+.transparent-btn {
+    -webkit-transition: linear 0.1s;
+    -moz-transition: linear 0.1s;
+    -ms-transition: linear 0.1s;
+    -o-transition: linear 0.1s;
+    transition: linear 0.1s;
+}
+
+.transparent-btn:hover {
+    border: 3px solid #80bdff !important;
+}
+
+.m-drop-btn {
+    background-color: transparent !important;
+    border-color: #ced4da;
+    color: inherit;
+}
+
+.m-drop-btn:hover {
+    color: inherit;
+    outline-color: #80bdff !important;
+}
+
+.secondary {
+    color: inherit;
+    background-color: transparent;
+    border: none;
+}
+
+.secondary:hover, .secondary:active, .secondary:focus {
+    background-color: transparent !important;
+    color: gray;
+
+}
+
+#result {
+
+}
+
+#loader-wrapper {
+    margin-top: 60px;
+}
+
+#res-loader {
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes loading {
+    0% {color: inherit;}
+    50% {color: lightgray;}
+    100% {color: inherit;}
+}
+
+#result-values {
+    margin-top: 40px;
+}
+
+.error {
+    background-color: #bf0000;
+    color: white;
+}
+
+.r-view {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.list-divider {
+    width: auto;
+    height: 2px;
+    background-color: #c8c8c8;
+    margin: 30px -30px;
+}
+
+.title {
+    font-weight: 400;
+}
+
+.el-div {
+    width: auto;
+    height: 1px;
+    background-color: #c8c8c8
+}
+
+.item-bar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.notif-inline-title {
+    padding: 0px;
+    list-style: none;
+    display: inline;
+    white-space: nowrap;
+}
+
+.no-mar {
+    margin: 0;
+}
+.no-pad {
+    padding: 0;
+}
+
+.secondary-text {
+    color: #656565;
+}
+
+#dashboard {
+
+}
+
+.history-status {
+
+}
