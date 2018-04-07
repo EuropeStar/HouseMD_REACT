@@ -7,6 +7,7 @@ import ListView from "../components/ListView";
 import ResearchListItem from "../components/ResearchListItem";
 import TitleBar from "../components/TitleBar";
 import HistoryItem from "../components/HistoryItem";
+import SecondaryText from "../components/SecondaryText";
 
 class ResearchHistory extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class ResearchHistory extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             },
             {
                 title: 'Исследование №123 - Иван Иванов',
@@ -35,7 +36,7 @@ class ResearchHistory extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             },
             {
                 title: 'Исследование №123 - Иван Иванов',
@@ -46,7 +47,7 @@ class ResearchHistory extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             }
         ];
     }
@@ -59,7 +60,7 @@ class ResearchHistory extends Component {
         return (
             <div>
                 <TitleBar title={'История исследований'}/>
-                <h4 className={'text-secondary'}>История результатов исследований, нажмите "Детали", чтобы развернуть исследование</h4>
+                <SecondaryText>История результатов исследований, нажмите "Детали", чтобы развернуть исследование</SecondaryText>
                 <ListView listContent={buildHistoryList} zeroContent={'No research history yet...'}/>
             </div>
 

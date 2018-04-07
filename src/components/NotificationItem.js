@@ -3,6 +3,11 @@ import MaterialCard from "./MaterialCard";
 import LinkOption from "./LinkOption";
 
 function NotificationItem(props) {
+
+    /*
+        item {color, title, img, date, content}
+     */
+
     return (
         <div className={'item-bar'}>
             <MaterialCard>

@@ -8,6 +8,7 @@ import Dashboard from './Dashboard'
 import {Route} from "react-router-dom";
 import SignIn from "./Sign_in";
 import Notifications from "./Notifications";
+import AddUser from "./AddUser";
 
 class MainTemplate extends Component {
     constructor(props) {
@@ -41,18 +42,25 @@ class MainTemplate extends Component {
                 exact: false,
                 component: () => <ResearchHistory/>
             },
+
+            {
+                path: '/notifications',
+                title: 'Notifications',
+                type: 'notifications',
+                component: () => <Notifications/>
+            },
+            {
+                path: '/add_doctor',
+                title: 'Add doctor',
+                type: 'person_add',
+                component: () => <AddUser/>
+            },
             {
                 path: '/logout',
                 title: 'Log out',
                 type: 'lock_open',
                 exact: false,
                 component: () => <SignIn/>
-            },
-            {
-                path: '/notifications',
-                title: 'Notifications',
-                type: 'notifications',
-                component: () => <Notifications/>
             }
         ];
         return (

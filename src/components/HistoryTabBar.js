@@ -18,7 +18,7 @@ class HistoryTabBar extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             },
             {
                 title: 'Исследование №123 - Иван Иванов',
@@ -29,7 +29,7 @@ class HistoryTabBar extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             },
             {
                 title: 'Исследование №123 - Иван Иванов',
@@ -40,7 +40,7 @@ class HistoryTabBar extends Component {
                 },
                 date: new Date().toLocaleDateString(),
                 img: 'assignment',
-                color: 'black'
+                color: '#007bff'
             }
         ];
         return notes.map((key, index) => {
