@@ -9,6 +9,8 @@ import {Route} from "react-router-dom";
 import SignIn from "./Sign_in";
 import Notifications from "./Notifications";
 import AddUser from "./AddUser";
+import Settings from "./Settings";
+import Administrations from "./Administrations";
 
 class MainTemplate extends Component {
     constructor(props) {
@@ -56,6 +58,12 @@ class MainTemplate extends Component {
                 component: () => <AddUser/>
             },
             {
+                path: '/administration',
+                title: 'Manage doctors',
+                type: 'group',
+                component: () => <Administrations/>
+            },
+            {
                 path: '/logout',
                 title: 'Log out',
                 type: 'lock_open',
@@ -78,6 +86,7 @@ class MainTemplate extends Component {
                                 />;
                             })
                         }
+                        <Route component={() => <Settings/>} path={'/profile'}/>
                     </RightSideView>
                 </div>
             </FullHeightContainer>

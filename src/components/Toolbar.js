@@ -3,7 +3,7 @@ import PhotoThumbnail from "./PhtoThumbnail";
 import {STATIC_PATH} from '../backend';
 import ToolbarButtonList from "./ToolbarButtonsList";
 import ToolbarIcon from "./ToolbarIcon";
-import {BrowserRouter, Router} from 'react-router-dom';
+import {BrowserRouter, Link, Router} from 'react-router-dom';
 import {Route} from "react-router";
 
 class Toolbar extends Component {
@@ -17,11 +17,10 @@ class Toolbar extends Component {
                 <div id="toolbar">
                     <h3 id="title-site">HouseMD</h3>
                     <div id="profile-view">
-                        <a href="#">
+                        <Link to={'/profile'}>
                             <PhotoThumbnail url={STATIC_PATH + '/img/user.png'}/>
                             <p id="nickname-tb">HouseMD man</p>
-                        </a>
-
+                        </Link>
                     </div>
                     <ToolbarButtonList>
                             <div>

@@ -380,3 +380,7 @@ input::-webkit-inner-spin-button {
 .history-status {
 
 }
+
+.right {
+    float: right;
+}
