@@ -2,18 +2,28 @@ import React from "react";
 import {connect} from "react-redux";
 import SignIn from "../Templates/Sign_in";
 import push from 'react-router-redux';
-
+import {history} from '../reducers/index';
 
 export function requireAuth(Component) {
 
     class AuthenticatedComponent extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+
+        checkAuth() {
+            if (!this.props.isAuthenticated) {
+                return <SignIn/>
+            } else {
+                return <Component {...this.props}/>
+            }
+        }
 
         render () {
             return (
                 <div>
                     {
-                        this.props.isAuthenticated
-                        ? <Component {...this.props}/> : <SignIn/>
+                        this.checkAuth()
                     }
                 </div>
             )
@@ -24,9 +34,13 @@ export function requireAuth(Component) {
     const mapStateToProps = (state) => ({
         token: state.auth.token,
         userName: state.auth.userName,
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
+        history: state.router
     });
 
-    return connect(mapStateToProps)(AuthenticatedComponent);
+    const mapDispatchToProps = (dispatch) => ({
+    });
+
+    return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
 
 }

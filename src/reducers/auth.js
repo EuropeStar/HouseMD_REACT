@@ -3,7 +3,7 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
     LOGIN_USER_REQUEST,
-    LOGOUT_USER,
+    LOGOUT_USER, CONNECTING_SERVER_ERROR,
 } from '../constants'
 
 const initialState = {
@@ -42,6 +42,10 @@ export function auth(state = initialState, action) {
                 token: null,
                 userName: null,
                 statusText: 'You have been logged out'
+            });
+        case CONNECTING_SERVER_ERROR:
+            return Object.assign({}, state, {
+                statusText: action.payload.statusText
             });
         default: return state;
     }

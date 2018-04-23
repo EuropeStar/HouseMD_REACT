@@ -5,12 +5,13 @@ import RightSideView from "../components/RightSideView";
 import Research from "./Research";
 import ResearchHistory from "./ResearchHistory";
 import Dashboard from './Dashboard'
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import SignIn from "./Sign_in";
 import Notifications from "./Notifications";
 import AddUser from "./AddUser";
 import Settings from "./Settings";
 import Administrations from "./Administrations";
+import NotFound from "./NotFound";
 
 class MainTemplate extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class MainTemplate extends Component {
 
         const Routers = [
             {
-                path: '/',
+                path: '/dashboard',
                 title: 'Dashboard',
                 type: 'home',
                 component: () => <Dashboard/>
@@ -57,29 +58,28 @@ class MainTemplate extends Component {
                 type: 'group',
                 component: () => <Administrations/>
             },
-            {
-                path: '/logout',
-                title: 'Log out',
-                type: 'lock_open',
-                component: () => <SignIn/>
-            }
         ];
         return (
             <FullHeightContainer container={'false'}>
                 <div>
                     <Toolbar routers={Routers}/>
                     <RightSideView>
-                        {
-                            Routers.map((key, index) => {
-                                return <Route
-                                    key={index}
-                                    path={key.path}
-                                    exact={key.exact}
-                                    component={key.component}
-                                />;
-                            })
-                        }
-                        <Route component={() => <Settings/>} path={'/profile'}/>
+                        <Switch>
+                            {
+                                Routers.map((key, index) => {
+                                    return <Route
+                                        key={index}
+                                        path={key.path}
+                                        exact={key.exact}
+                                        component={key.component}
+                                    />;
+                                })
+                            }
+                            <Route component={() => <Settings/>} path={'/profile'}/>
+                            <Route path={'/404'} component={() => <NotFound/>}/>
+                            <Redirect from={'/'} to={'/dashboard'}/>
+                            <Redirect to={'/404'}/>
+                        </Switch>
                     </RightSideView>
                 </div>
             </FullHeightContainer>

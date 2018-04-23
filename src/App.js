@@ -7,13 +7,11 @@ import MainTemplate from "./Templates/MainTemplate";
 import SignIn from "./Templates/Sign_in";
 import { requireAuth } from './components/AuthWrapper'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: false
-        }
     }
 
     componentDidMount() {
@@ -34,4 +32,4 @@ const mapStateToProps = (state) => ({
     token: state.auth.token
 });
 
-export default connect(mapStateToProps, (dispatch) => ({}))(App);
+export default withRouter(connect(mapStateToProps, (dispatch) => ({}))(App));

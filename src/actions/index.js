@@ -5,6 +5,7 @@ import {
     LOGOUT_USER,
     FETCH_PROTECTED_DATA_REQUEST,
     RECEIVE_PROTECTED_DATA,
+    CONNECTING_SERVER_ERROR
 } from '../constants'
 import {push} from 'react-router-redux';
 import {LOGIN_URL, PATH} from '../backend';
@@ -75,5 +76,14 @@ export function fetchProtectedData(token, url) {
                 dispatch(push('/login'));
             }
         })
+    }
+}
+
+export function serverError(text) {
+    return {
+        type: CONNECTING_SERVER_ERROR,
+        payload: {
+            statusText: text
+        }
     }
 }

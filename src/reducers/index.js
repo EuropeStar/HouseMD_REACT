@@ -1,16 +1,20 @@
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import {combineReducers} from 'redux'
 import {auth} from './auth'
 import {data} from './data'
-import {routerReducer} from 'react-router-redux'
+import {routerMiddleware, routerReducer} from 'react-router-redux'
+import {createBrowserHistory} from 'history'
 
+export const history = createBrowserHistory();
 
-export const application = combineReducers({
+const middleware = routerMiddleware(history);
+
+const application = combineReducers({
     auth,
     data,
-    router: routerReducer
+    routing: routerReducer,
 });
 
-export const store = createStore(application);
+export const store = createStore(application, applyMiddleware(middleware));
 
 store.subscribe((store) => console.log(store));

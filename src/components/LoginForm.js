@@ -5,12 +5,13 @@ import Field from './Field';
 import LinkOption from './LinkOption';
 import ButtonOption from './ButtonOption';
 import PostForm from './PostForm';
-import {loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
+import {loginUserFailed, loginUserRequest, loginUserSuccess, serverError} from "../actions";
 import {connect} from "react-redux";
 import {LOGIN_URL, PATH} from "../backend";
 import Warn from "./Warn";
 import $ from 'jquery';
 import Loader from "./Loader";
+import AlertWrapper from "./AlertWrapper";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class LoginForm extends Component {
                         }
                     });
             }).catch(err => {
-                alert("Server error: " + err)
+                this.props.loginServerError("Ошибка интеренет соединения")
             })
     }
 
@@ -55,7 +56,7 @@ class LoginForm extends Component {
     render() {
         return (
             <MaterialCard rd id="log-form">
-                <Warn>{this.props.statusText}</Warn>
+                { this.props.statusText? <AlertWrapper type='danger'>{this.props.statusText}</AlertWrapper> : null}
                 {this.props.authInProgress? <Loader/>:null}
                 <PostForm>
                     <Field label={'Username'} placeholder={'Example'} name={"login"} inputRef={el => this.logInRef = el}/>
@@ -84,6 +85,7 @@ const dispatchToProps = (dispatch) => ({
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
     loginSuccess: () => dispatch(loginUserSuccess()),
+    loginServerError: (text) => dispatch(serverError(text))
 });
 
 export default connect(mapStateToProps, dispatchToProps)(LoginForm);

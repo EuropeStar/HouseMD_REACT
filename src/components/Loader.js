@@ -9,7 +9,7 @@ function Loader(props) {
         textAlign: 'centered'
     };
     return (
-        <div className={'text-centered'} id={'loading2'} style={stl}>
+        <div className={'text-centered loading2'} style={stl}>
         </div>
     )
 }

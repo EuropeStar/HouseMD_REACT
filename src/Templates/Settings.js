@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import FullHeightContainer from "../components/FullHeightContainer";
-import Toolbar from "../components/Toolbar";
-import RightSideView from "../components/RightSideView";
 import MaterialCard from "../components/MaterialCard";
 import TitleBar from "../components/TitleBar";
 import SecondaryText from "../components/SecondaryText";
@@ -9,6 +6,7 @@ import PhotoThumbnail from "../components/PhtoThumbnail";
 import SubForm from "../components/SubForm";
 import ButtonOption from "../components/ButtonOption";
 import OptionList from "../components/OptionList";
+import {DEFAULT_IMG, STATIC_PATH} from '../backend'
 
 const profileFields = [
     {
@@ -58,7 +56,7 @@ class Settings extends Component {
                 <SecondaryText>Вы можете изменить информацию о пользователе</SecondaryText>
                 <MaterialCard>
                     <div className={'centered'}>
-                        <PhotoThumbnail/>
+                        <PhotoThumbnail url={STATIC_PATH + DEFAULT_IMG}/>
                     </div>
                     <div className={'row'}>
                         <div className={'col-lg-5'}>

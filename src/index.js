@@ -4,10 +4,11 @@ import App from './App';
 import 'jquery'
 import 'bootstrap/dist/js/bootstrap';
 import registerServiceWorker from './registerServiceWorker';
-import {HashRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom'
 import {Provider} from 'react-redux';
 import {store} from "./reducers";
 import {loginUserSuccess} from "./actions";
+import {history} from './reducers/index';
 
 
 const token = localStorage.getItem('token');
@@ -17,9 +18,9 @@ if (token !== null) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter basename='/'>
+        <Router basename='/' history={history}>
             <App/>
-        </HashRouter>
+        </Router>
     </Provider>,
     document.getElementById('app')
 );
