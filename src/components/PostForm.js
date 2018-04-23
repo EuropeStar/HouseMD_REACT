@@ -2,7 +2,7 @@ import React from 'react';
 
 function PostForm(props) {
     return (
-        <form className="form-group" method={props.method} action={props.action}>
+        <form className="form-group">
             {props.children}
         </form>
     )

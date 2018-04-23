@@ -5,18 +5,23 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "chart.js": "^2.7.2",
+    "history": "^4.7.2",
     "jquery": "^3.3.1",
+    "jwt-decode": "^2.2.0",
     "popper.js": "^1.14.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-table-next": "^0.1.7",
     "react-chartjs-2": "^2.7.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.1.1",
     "react-smooth": "^1.0.0",
-    "reactstrap": "^5.0.0"
+    "reactstrap": "^5.0.0",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

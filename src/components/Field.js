@@ -11,7 +11,7 @@ function Field(props) {
 
             {props.label? labelElement: ''}
             <input name={props.name} type={props.type || 'text'} placeholder={props.placeholder}
-                   className='form-control field' value={props.value}/>
+                   className='form-control field' value={props.value} ref={props.inputRef}/>
         </div>
     )
 }

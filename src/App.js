@@ -3,33 +3,35 @@ import './components/LoginForm'
 import './css/bootstrap.min.css';
 import './css/style.css';
 import './css/design.css';
-import SignIn from "./Templates/Sign_in";
-import UserConfirmation from './Templates/Confirm';
-import {PATH} from './backend'
-import Research from "./Templates/Research";
-import ResearchHistory from "./Templates/ResearchHistory";
-import Settings from "./Templates/Settings";
 import MainTemplate from "./Templates/MainTemplate";
+import SignIn from "./Templates/Sign_in";
+import { requireAuth } from './components/AuthWrapper'
+import {connect} from 'react-redux'
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            'login': ''
+            user: false
         }
     }
 
     componentDidMount() {
-
     }
 
     render() {
+        const Template = requireAuth(MainTemplate);
         return (
             <div className="App">
-                <MainTemplate/>
+               <Template/>
             </div>
         );
     }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    token: state.auth.token
+});
+
+export default connect(mapStateToProps, (dispatch) => ({}))(App);

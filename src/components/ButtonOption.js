@@ -20,7 +20,11 @@ class ButtonOption extends Component{
         if (this.props.type) {
             clsNames += ' ' + this.props.type;
         }
-        return <button onClick={this.props.handleClick} style={styles} className={clsNames}>{this.props.children}{this.state.title}</button>
+        return <button onClick={this.props.handleClick}
+                       style={styles}
+                       onSubmit={null}
+                       className={clsNames}>{this.props.children}{this.state.title}
+                       </button>
     }
 }
 

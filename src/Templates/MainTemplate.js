@@ -15,9 +15,6 @@ import Administrations from "./Administrations";
 class MainTemplate extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            wrapping: true
-        }
     }
 
     render() {
@@ -27,21 +24,18 @@ class MainTemplate extends Component {
                 path: '/',
                 title: 'Dashboard',
                 type: 'home',
-                exact: true,
                 component: () => <Dashboard/>
             },
             {
                 path: '/research',
                 title: 'Research',
                 type: 'search',
-                exact: false,
                 component: () => <Research/>
             },
             {
                 path: '/history',
                 title: 'Research history',
                 type: 'assignment',
-                exact: false,
                 component: () => <ResearchHistory/>
             },
 
@@ -67,7 +61,6 @@ class MainTemplate extends Component {
                 path: '/logout',
                 title: 'Log out',
                 type: 'lock_open',
-                exact: false,
                 component: () => <SignIn/>
             }
         ];
