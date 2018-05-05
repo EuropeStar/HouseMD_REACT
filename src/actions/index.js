@@ -5,7 +5,8 @@ import {
     LOGOUT_USER,
     FETCH_PROTECTED_DATA_REQUEST,
     RECEIVE_PROTECTED_DATA,
-    CONNECTING_SERVER_ERROR
+    CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
+    LAST_RESEARCH_FAILED
 } from '../constants'
 import {push} from 'react-router-redux';
 import {LOGIN_URL, PATH} from '../backend';
@@ -84,6 +85,55 @@ export function serverError(text) {
         type: CONNECTING_SERVER_ERROR,
         payload: {
             statusText: text
+        }
+    }
+}
+
+export function fetchNotificationRequest() {
+    return {
+        type: FETCH_PROTECTED_DATA_REQUEST
+    }
+}
+
+export function readNotification(id) {
+    return {
+        type: READ_NOTIFICATION,
+        payload: {
+            id: id
+        }
+    }
+}
+
+export function fetchNotifications(data, unread) {
+    return {
+        type: FETCH_NOTIFICATIONS,
+        payload: {
+            allItems: data,
+            unreadId: unread
+        }
+    }
+}
+
+export function fetchLastResearch(data) {
+    return {
+        type: LAST_RESEARCH_FETCH,
+        payload: {
+            data: data
+        }
+    }
+}
+
+export function fetchLastResearchRequest() {
+    return {
+        type: LAST_RESEARCH_REQUEST
+    }
+}
+
+export function fetchLastResearchFailed(err) {
+    return {
+        type: LAST_RESEARCH_FAILED,
+        payload: {
+            error: err
         }
     }
 }

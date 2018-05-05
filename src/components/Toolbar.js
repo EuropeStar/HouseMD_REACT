@@ -4,11 +4,19 @@ import {STATIC_PATH} from '../backend';
 import ToolbarButtonList from "./ToolbarButtonsList";
 import ToolbarIcon from "./ToolbarIcon";
 import {BrowserRouter, Link, Router} from 'react-router-dom';
-import {Route} from "react-router";
+import {withRouter} from "react-router";
+import {connect} from 'react-redux'
+import {logout} from '../actions/index'
+import LogoutIcon from "./LogoutIcon";
 
 class Toolbar extends Component {
     constructor(props) {
         super(props);
+    }
+
+    handleLogOut(e) {
+        this.props.logout();
+        e.preventDefault();
     }
 
     render() {
@@ -34,6 +42,7 @@ class Toolbar extends Component {
                                         />
                                     })
                                 }
+                                <LogoutIcon title={'Выход'} type={'lock'} handleLogOut={this.handleLogOut.bind(this)}/>
                             </div>
                     </ToolbarButtonList>
                 </div>
@@ -42,4 +51,11 @@ class Toolbar extends Component {
     }
 }
 
-export default Toolbar;
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(logout())
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Toolbar));

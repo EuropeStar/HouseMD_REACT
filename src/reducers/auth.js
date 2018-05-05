@@ -1,4 +1,3 @@
-import jwtDecode from 'jwt-decode';
 import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,

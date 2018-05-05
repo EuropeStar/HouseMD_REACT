@@ -5,6 +5,9 @@ import LinkOption from "../components/LinkOption";
 import HistoryItem from "../components/HistoryItem";
 import NotificationItem from "../components/NotificationItem";
 import ListView from "../components/ListView";
+import {fetchNotifications, fetchProtectedDataRequest, logout, readNotification, serverError} from "../actions";
+import {connect} from "react-redux";
+import {PATH} from "../backend";
 
 class Notifications extends Component {
     constructor(props) {
@@ -12,31 +15,27 @@ class Notifications extends Component {
         this.loadNotificationList = this.loadNotificationList.bind(this);
     }
 
-    loadNotificationList() {
-        let lst = [
-            {
-                title: 'Диагноз подтвержден',
-                content: 'В.В. Билл подтвердил Ваш диагноз',
-                date: new Date().toLocaleDateString(),
-                img: 'offline_pin',
-                color: 'green'
-            },
-            {
-                title: 'Диагноз подтвержден',
-                content: 'В.В. Билл подтвердил Ваш диагноз',
-                date: new Date().toLocaleDateString(),
-                img: 'offline_pin',
-                color: 'green'
-            },
-            {
-                title: 'Диагноз подтвержден',
-                content: 'В.В. Билл подтвердил Ваш диагноз',
-                date: new Date().toLocaleDateString(),
-                img: 'close',
-                color: 'red'
+    componentDidMount() {
+        this.props.fetchNotificationsRequest();
+        let token = localStorage.getItem('token');
+        fetch(PATH + '/notifications', {
+            credentials: 'include',
+            headers: {
+                'Authorization': `JWT ${token}`
             }
-        ];
-        return lst.map((key, index) => {
+        }).then(resp => resp.json())
+            .then(resp => {
+                let all = resp.data;
+                let un = all.map(x => {
+                    if (!x.is_readed)
+                        return x.id
+                });
+                this.props.fetchNotifications(all, un);
+            }).catch(err => this.props.serverError(err))
+    }
+
+    loadNotificationList() {
+        return this.props.allItems.map((key, index) => {
             return <NotificationItem item={key} key={index}/>
         })
     }
@@ -47,9 +46,24 @@ class Notifications extends Component {
                 <TitleBar title={'Уведомления'}/>
                 <SecondaryText>Список уведомлений</SecondaryText>
                 <LinkOption title={'Показать только непрочитанные'}/>
-                <ListView listContent={this.loadNotificationList()} zeroContent={'No notifications yet'}/>
+                <ListView listContent={this.loadNotificationList()} zeroContent={'У Вас нет уведомлений'}/>
             </div>
         )
     }
 }
-export default Notifications;
+
+const mapStateToProps = (state) => ({
+    isFetching: state.notifications.isFetching,
+    allItems: state.notifications.allItems,
+    unreadId: state.notifications.unreadId
+});
+
+const mapDispathcToProps = (dispatch) => ({
+    fetchNotificationsRequest: () => dispatch(fetchProtectedDataRequest()),
+    fetchNotifications: (data, unread) => dispatch(fetchNotifications(data, unread)),
+    readNotification: (id) => dispatch(readNotification(id)),
+    logout: () => dispatch(logout()),
+    serverError: (err) => dispatch(serverError(err)),
+});
+
+export default connect(mapStateToProps, mapDispathcToProps)(Notifications);

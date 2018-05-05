@@ -5,7 +5,13 @@ import LinkOption from "./LinkOption";
 function NotificationItem(props) {
 
     /*
-        item {color, title, img, date, content}
+        {
+        //         title: 'Диагноз подтвержден',
+        //         content: 'В.В. Билл подтвердил Ваш диагноз',
+        //         date: new Date().toLocaleDateString(),
+        //         img: 'offline_pin',
+        //         color: 'green'
+        //
      */
 
     return (

@@ -5,7 +5,7 @@ import Field from './Field';
 import LinkOption from './LinkOption';
 import ButtonOption from './ButtonOption';
 import PostForm from './PostForm';
-import {loginUserFailed, loginUserRequest, loginUserSuccess, serverError} from "../actions";
+import {loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
 import {connect} from "react-redux";
 import {LOGIN_URL, PATH} from "../backend";
 import Warn from "./Warn";
@@ -42,7 +42,12 @@ class LoginForm extends Component {
                         }
                     });
             }).catch(err => {
-                this.props.loginServerError("Ошибка интеренет соединения")
+                this.props.loginFailed({
+                    response: {
+                        status: 500,
+                        statusText: 'Ошибка интернет соедениения'
+                    }
+                });
             })
     }
 
@@ -53,10 +58,24 @@ class LoginForm extends Component {
         e.preventDefault();
     }
 
+    showAlert() {
+        let type = '';
+        if (this.props.status === undefined) {
+            type = 'info'
+        }else if (this.props.status < 300) {
+            type = 'success';
+        } else if (this.props.status < 400) {
+            type = 'info'
+        } else {
+            type = 'danger'
+        }
+        return <AlertWrapper type={type}>{this.props.statusText}</AlertWrapper>
+    }
+
     render() {
         return (
             <MaterialCard rd id="log-form">
-                { this.props.statusText? <AlertWrapper type='danger'>{this.props.statusText}</AlertWrapper> : null}
+                { this.props.statusText?  this.showAlert() : null}
                 {this.props.authInProgress? <Loader/>:null}
                 <PostForm>
                     <Field label={'Username'} placeholder={'Example'} name={"login"} inputRef={el => this.logInRef = el}/>
@@ -78,14 +97,15 @@ const mapStateToProps = (state) => ({
     token: state.auth.token,
     isAuthenticated: state.auth.isAuthenticated,
     authInProgress: state.auth.authInProgress,
-    statusText: state.auth.statusText
+    statusText: state.auth.statusText,
+    status: state.auth.status
 });
 
 const dispatchToProps = (dispatch) => ({
+
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
     loginSuccess: () => dispatch(loginUserSuccess()),
-    loginServerError: (text) => dispatch(serverError(text))
 });
 
 export default connect(mapStateToProps, dispatchToProps)(LoginForm);

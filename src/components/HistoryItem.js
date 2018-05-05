@@ -2,6 +2,17 @@ import React from 'react';
 import MaterialCard from "./MaterialCard";
 
 function HistoryItem(props) {
+    /*
+    title: 'Исследование №123 - Иван Иванов',
+                propKeys: {
+                    'Симптомы': ['Кашель', 'Головная болль', 'Температура'],
+                    'Противопоказания': ['Противо1', 'Противо2', 'Противо3'],
+                    'Диагноз': ['ОРЗ']
+                },
+                date: new Date().toLocaleDateString(),
+                img: 'assignment',
+                color: '#007bff'
+     */
     return (
         <div className={'item-bar'}>
             <MaterialCard>
