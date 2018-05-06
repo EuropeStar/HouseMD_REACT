@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import NotificationItem from "./NotificationItem";
 import {
-    fetchNotifications, fetchProtectedDataRequest, logout, readNotification,
+    fetchNotifications, fetchProtectedDataRequest, loginUserFailed, readNotification,
     serverError
 } from "../actions";
 import SecondaryText from "./SecondaryText";
-import {PATH} from "../backend";
+import {PATH, URLS} from "../backend";
 
 class NotificationTabBar extends Component {
     constructor(props) {
@@ -16,8 +16,8 @@ class NotificationTabBar extends Component {
     componentDidMount() {
         this.props.fetchNotificationsRequest();
         let token = localStorage.getItem('token');
-        fetch(PATH + '/notifications', {
-            credentials: 'include',
+        console.log(token);
+        fetch(PATH + URLS.NOTIFICATIONS, {
             headers: {
                 'Authorization': `JWT ${token}`
             }
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchNotificationsRequest: () => dispatch(fetchProtectedDataRequest()),
     fetchNotifications: (data, unread) => dispatch(fetchNotifications(data, unread)),
     readNotification: (id) => dispatch(readNotification(id)),
-    logout: () => dispatch(logout()),
+    loginUserFailed: (err) => dispatch(loginUserFailed(err)),
     serverError: (err) => dispatch(serverError(err)),
 });
 

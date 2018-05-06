@@ -5,9 +5,13 @@ import LinkOption from "../components/LinkOption";
 import HistoryItem from "../components/HistoryItem";
 import NotificationItem from "../components/NotificationItem";
 import ListView from "../components/ListView";
-import {fetchNotifications, fetchProtectedDataRequest, logout, readNotification, serverError} from "../actions";
+import {
+    fetchNotifications, fetchNotificationsFailed, fetchProtectedDataRequest, loginUserFailed, logout, readNotification,
+    serverError
+} from "../actions";
 import {connect} from "react-redux";
-import {PATH} from "../backend";
+import {PATH, URLS} from "../backend";
+import {handleResponse} from "../utils/handle";
 
 class Notifications extends Component {
     constructor(props) {
@@ -18,12 +22,12 @@ class Notifications extends Component {
     componentDidMount() {
         this.props.fetchNotificationsRequest();
         let token = localStorage.getItem('token');
-        fetch(PATH + '/notifications', {
-            credentials: 'include',
+        fetch(PATH + URLS.NOTIFICATIONS, {
             headers: {
                 'Authorization': `JWT ${token}`
             }
-        }).then(resp => resp.json())
+        })
+            .then(resp => resp.json())
             .then(resp => {
                 let all = resp.data;
                 let un = all.map(x => {
@@ -31,7 +35,9 @@ class Notifications extends Component {
                         return x.id
                 });
                 this.props.fetchNotifications(all, un);
-            }).catch(err => this.props.serverError(err))
+            }).catch(err => {
+
+            })
     }
 
     loadNotificationList() {
@@ -55,15 +61,16 @@ class Notifications extends Component {
 const mapStateToProps = (state) => ({
     isFetching: state.notifications.isFetching,
     allItems: state.notifications.allItems,
-    unreadId: state.notifications.unreadId
+    unreadId: state.notifications.unreadId,
+    statusText: state.auth.statusText
 });
 
-const mapDispathcToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchNotificationsRequest: () => dispatch(fetchProtectedDataRequest()),
     fetchNotifications: (data, unread) => dispatch(fetchNotifications(data, unread)),
+    fetchNotificationsFailed: (err) => dispatch(fetchNotificationsFailed(err)),
     readNotification: (id) => dispatch(readNotification(id)),
-    logout: () => dispatch(logout()),
-    serverError: (err) => dispatch(serverError(err)),
+    loginUserFailed: (err) => dispatch(loginUserFailed(err)),
 });
 
-export default connect(mapStateToProps, mapDispathcToProps)(Notifications);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

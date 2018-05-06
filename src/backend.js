@@ -8,3 +8,8 @@ export {
     DEFAULT_IMG,
     LOGIN_URL
 }
+
+export const URLS = {
+    RESEARCH: '/research/',
+    NOTIFICATIONS: '/notifications/',
+};

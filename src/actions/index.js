@@ -6,7 +6,7 @@ import {
     FETCH_PROTECTED_DATA_REQUEST,
     RECEIVE_PROTECTED_DATA,
     CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
-    LAST_RESEARCH_FAILED
+    LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED
 } from '../constants'
 import {push} from 'react-router-redux';
 import {LOGIN_URL, PATH} from '../backend';
@@ -27,8 +27,8 @@ export function loginUserFailed(error) {
     return {
         type: LOGIN_USER_FAILURE,
         payload: {
-            status: error.response.status,
-            statusText: error.response.statusText
+            status: error.status,
+            statusText: error.statusText
         }
     }
 }
@@ -85,6 +85,15 @@ export function serverError(text) {
         type: CONNECTING_SERVER_ERROR,
         payload: {
             statusText: text
+        }
+    }
+}
+
+export function fetchNotificationsFailed(err) {
+    return {
+        type: FETCH_NOTIFICATIONS_FAILED,
+        payload: {
+            statusText: err
         }
     }
 }

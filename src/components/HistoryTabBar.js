@@ -3,7 +3,7 @@ import MaterialCard from "./MaterialCard";
 import HistoryItem from "./HistoryItem";
 import {connect} from "react-redux";
 import {fetchLastResearch, fetchLastResearchFailed, fetchLastResearchRequest} from "../actions";
-import {PATH} from "../backend";
+import {PATH, URLS} from "../backend";
 import SecondaryText from "./SecondaryText";
 
 class HistoryTabBar extends Component {
@@ -14,8 +14,7 @@ class HistoryTabBar extends Component {
     componentWillMount() {
         this.props.fetchLastResearchRequest();
         let token = localStorage.getItem('token');
-        fetch(PATH + '/research', {
-            credentials: 'include',
+        fetch(PATH + URLS.RESEARCH, {
             headers: {
                 'Authorization': `JWT ${token}`
             }
