@@ -23,10 +23,18 @@ class Notifications extends Component {
         this.props.fetchNotificationsRequest();
         let token = localStorage.getItem('token');
         fetch(PATH + URLS.NOTIFICATIONS, {
+            credentials: 'include',
             headers: {
                 'Authorization': `JWT ${token}`
             }
         })
+            .then(resp => {
+                if (resp.status === 401) {
+                    this.props.fetchNotificationsFailed(resp.statusText);
+                    this.props.loginUserFailed(resp);
+                    throw Error(resp.statusText);
+                }
+            })
             .then(resp => resp.json())
             .then(resp => {
                 let all = resp.data;

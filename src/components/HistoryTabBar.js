@@ -15,10 +15,19 @@ class HistoryTabBar extends Component {
         this.props.fetchLastResearchRequest();
         let token = localStorage.getItem('token');
         fetch(PATH + URLS.RESEARCH, {
+            credentials: 'include',
             headers: {
                 'Authorization': `JWT ${token}`
             }
-        }).then(resp => resp.json())
+        })
+            .then(resp => {
+                if (resp.status === 401) {
+                    this.props.fetchNotificationsFailed(resp.statusText);
+                    this.props.loginUserFailed(resp);
+                    throw Error(resp.statusText);
+                }
+            })
+            .then(resp => resp.json())
             .then(resp => {
                 this.props.fetchLastResearch(resp.data)
             }).catch(err => this.props.fetchLastResearchFailed(err))

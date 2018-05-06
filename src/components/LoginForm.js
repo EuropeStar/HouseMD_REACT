@@ -41,6 +41,7 @@ class LoginForm extends Component {
                             statusText: 'Неверный логин или пароль'
                         }
                     });
+                console.log(localStorage.getItem('token'));
             }).catch(err => {
                 this.props.loginFailed({
                     response: {
@@ -105,7 +106,7 @@ const dispatchToProps = (dispatch) => ({
 
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
-    loginSuccess: () => dispatch(loginUserSuccess()),
+    loginSuccess: (token) => dispatch(loginUserSuccess(token)),
 });
 
 export default connect(mapStateToProps, dispatchToProps)(LoginForm);
