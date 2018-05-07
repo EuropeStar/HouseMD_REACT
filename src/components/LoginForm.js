@@ -5,9 +5,9 @@ import Field from './Field';
 import LinkOption from './LinkOption';
 import ButtonOption from './ButtonOption';
 import PostForm from './PostForm';
-import {loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
+import {getUserName, loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
 import {connect} from "react-redux";
-import {LOGIN_URL, PATH} from "../backend";
+import {LOGIN_URL, PATH, URLS} from "../backend";
 import Warn from "./Warn";
 import $ from 'jquery';
 import Loader from "./Loader";
@@ -33,15 +33,16 @@ class LoginForm extends Component {
         })
             .then(resp => resp.json())
             .then(resp => {
-                if (resp.token && resp.token !== '')
+                if (resp.token && resp.token !== '') {
                     this.props.loginSuccess(resp.token);
+                }
                 else
                     this.props.loginFailed({
                         response: {
                             statusText: 'Неверный логин или пароль'
                         }
                     });
-                console.log(localStorage.getItem('token'));
+
             }).catch(err => {
                 this.props.loginFailed({
                     response: {
@@ -65,8 +66,6 @@ class LoginForm extends Component {
             type = 'info'
         }else if (this.props.status < 300) {
             type = 'success';
-        } else if (this.props.status < 400) {
-            type = 'info'
         } else {
             type = 'danger'
         }
@@ -79,13 +78,13 @@ class LoginForm extends Component {
                 { this.props.statusText?  this.showAlert() : null}
                 {this.props.authInProgress? <Loader/>:null}
                 <PostForm>
-                    <Field label={'Username'} placeholder={'Example'} name={"login"} inputRef={el => this.logInRef = el}/>
-                    <Field label={'Password'} placeholder={'Password'} name={'password'} type={'password'}
+                    <Field label={'Имя пользователя'} placeholder={'house_md'} name={"login"} inputRef={el => this.logInRef = el}/>
+                    <Field label={'Пароль'} placeholder={'Password'} name={'password'} type={'password'}
                            inputRef={el => this.passwordRef = el}/>
                     <div className="mt">
                         <OptionList>
-                            <ButtonOption title={'Submit'} type={"access"} handleClick={this.onLogin.bind(this)}/>
-                            <LinkOption title={'Remind password'}/>
+                            <ButtonOption title={'Войти'} type={"access"} handleClick={this.onLogin.bind(this)}/>
+                            <LinkOption title={'Восстановить пароль'}/>
                         </OptionList>
                     </div>
                 </PostForm>
@@ -103,7 +102,7 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
-
+    getUserName: (username) => dispatch(getUserName(username)),
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
     loginSuccess: (token) => dispatch(loginUserSuccess(token)),

@@ -6,6 +6,7 @@ import {routerMiddleware, routerReducer} from 'react-router-redux'
 import {createBrowserHistory} from 'history'
 import {notifications} from "./notifications";
 import {research} from "./research";
+import {loader} from "./loader";
 
 export const history = createBrowserHistory();
 
@@ -16,6 +17,7 @@ const application = combineReducers({
     data,
     notifications,
     research,
+    loader,
     routing: routerReducer,
 });
 

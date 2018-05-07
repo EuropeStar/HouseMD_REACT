@@ -295,9 +295,7 @@ input::-webkit-inner-spin-button {
 }
 
 .secondary:hover, .secondary:active, .secondary:focus {
-    background-color: transparent !important;
-    color: gray;
-
+    background-color: #efefef !important;
 }
 
 #result {
@@ -384,4 +382,11 @@ input::-webkit-inner-spin-button {
 
 .right {
     float: right;
+}
+
+#bckg-loader {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    font-size: 160px;
 }

@@ -6,11 +6,23 @@ import {
     FETCH_PROTECTED_DATA_REQUEST,
     RECEIVE_PROTECTED_DATA,
     CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
-    LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED
+    LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED, LOADING_STARTED, LOADING_DONE, OBTAIN_USERNAME
 } from '../constants'
 import {push} from 'react-router-redux';
 import {LOGIN_URL, PATH} from '../backend';
 import jwtDecode from 'jwt-decode';
+
+export function loadingStarted() {
+    return {
+        type: LOADING_STARTED
+    }
+}
+
+export function loadingDone() {
+    return {
+        type: LOADING_DONE
+    }
+}
 
 export function loginUserSuccess(token) {
     localStorage.setItem("token", token);
@@ -143,6 +155,16 @@ export function fetchLastResearchFailed(err) {
         type: LAST_RESEARCH_FAILED,
         payload: {
             error: err
+        }
+    }
+}
+
+export function getUserName(username) {
+    localStorage.setItem('username', username);
+    return {
+        type: OBTAIN_USERNAME,
+        payload: {
+            userName: username
         }
     }
 }

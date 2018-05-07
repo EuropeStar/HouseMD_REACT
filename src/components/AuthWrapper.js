@@ -13,6 +13,8 @@ export function requireAuth(Component) {
 
         checkAuth() {
             if (!this.props.isAuthenticated) {
+                if (history.location.pathname !== '/login')
+                    history.push('/login');
                 return <SignIn/>
             } else {
                 return <Component {...this.props}/>

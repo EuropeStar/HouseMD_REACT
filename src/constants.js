@@ -13,3 +13,6 @@ export const LAST_RESEARCH_REQUEST = 12;
 export const LAST_RESEARCH_FETCH = 13;
 export const LAST_RESEARCH_FAILED = 14;
 export const FETCH_NOTIFICATIONS_FAILED = 15;
+export const LOADING_STARTED = 16;
+export const LOADING_DONE = 17;
+export const OBTAIN_USERNAME = 18;

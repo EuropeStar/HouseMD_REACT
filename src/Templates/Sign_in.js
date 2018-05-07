@@ -15,7 +15,7 @@ function Header() {
 function TextView() {
     return (
         <div id="about-site">
-            <h2>Wellcome to HouseMD medicine system.</h2>
+            <h2>Добро пожаловать в медицискую систему HouseMD.</h2>
             <div className="hr"></div>
             <p className="plain-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel
                 diam ante. Proin sit amet magna et nibh suscipit accumsan dignissim vitae arcu. Nam id

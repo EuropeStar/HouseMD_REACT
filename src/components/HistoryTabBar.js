@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import MaterialCard from "./MaterialCard";
 import HistoryItem from "./HistoryItem";
 import {connect} from "react-redux";
-import {fetchLastResearch, fetchLastResearchFailed, fetchLastResearchRequest} from "../actions";
+import {fetchLastResearch, fetchLastResearchFailed, fetchLastResearchRequest, loginUserFailed} from "../actions";
 import {PATH, URLS} from "../backend";
 import SecondaryText from "./SecondaryText";
 
@@ -63,7 +63,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchLastResearchRequest: () => dispatch(fetchLastResearchRequest()),
     fetchLastResearch: (data) => dispatch(fetchLastResearch(data)),
-    fetchLastResearchFailed: (err) => dispatch(fetchLastResearchFailed(err))
+    fetchLastResearchFailed: (err) => dispatch(fetchLastResearchFailed(err)),
+    loginUserFailed: (err) => dispatch(loginUserFailed(err))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoryTabBar);

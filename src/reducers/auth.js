@@ -2,7 +2,7 @@ import {
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
     LOGIN_USER_REQUEST,
-    LOGOUT_USER, CONNECTING_SERVER_ERROR,
+    LOGOUT_USER, CONNECTING_SERVER_ERROR, OBTAIN_USERNAME,
 } from '../constants'
 
 const initialState = {
@@ -45,6 +45,10 @@ export function auth(state = initialState, action) {
         case CONNECTING_SERVER_ERROR:
             return Object.assign({}, state, {
                 statusText: action.payload.statusText
+            });
+        case OBTAIN_USERNAME:
+            return Object.assign({}, state, {
+                userName: action.payload.userName
             });
         default: return state;
     }

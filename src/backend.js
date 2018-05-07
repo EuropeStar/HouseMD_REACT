@@ -10,6 +10,8 @@ export {
 }
 
 export const URLS = {
-    RESEARCH: '/research/',
+    LOGIN_URL: '/api_obtain_token',
+    RESEARCH: '/examinations/',
     NOTIFICATIONS: '/notifications/',
+    USERNAME: '/get_user_info'
 };
