@@ -9,9 +9,13 @@ export {
     LOGIN_URL
 }
 
+export const REFRESH_TIME = 120000; // 2 MIN
+
 export const URLS = {
     LOGIN_URL: '/api_obtain_token',
-    RESEARCH: '/examinations/',
-    NOTIFICATIONS: '/notifications/',
-    USERNAME: '/get_user_info'
+    RESEARCH: '/examinations',
+    NOTIFICATIONS: '/notifications',
+    USER_DATA: '/get_user_info',
+    DASHBOARD: '/dashboard',
+    REFRESH_TOKEN: '/api_refresh_token'
 };

@@ -5,11 +5,9 @@ import Field from './Field';
 import LinkOption from './LinkOption';
 import ButtonOption from './ButtonOption';
 import PostForm from './PostForm';
-import {getUserName, loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
+import {loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
 import {connect} from "react-redux";
 import {LOGIN_URL, PATH, URLS} from "../backend";
-import Warn from "./Warn";
-import $ from 'jquery';
 import Loader from "./Loader";
 import AlertWrapper from "./AlertWrapper";
 
@@ -21,7 +19,7 @@ class LoginForm extends Component {
         }
     }
 
-    login(login, password, redirect="/") {
+    login(login, password) {
         this.props.loginRequest();
         fetch(PATH + LOGIN_URL, {
             method: 'POST',
@@ -102,7 +100,6 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
-    getUserName: (username) => dispatch(getUserName(username)),
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
     loginSuccess: (token) => dispatch(loginUserSuccess(token)),

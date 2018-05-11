@@ -6,7 +6,8 @@ import {
     FETCH_PROTECTED_DATA_REQUEST,
     RECEIVE_PROTECTED_DATA,
     CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
-    LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED, LOADING_STARTED, LOADING_DONE, OBTAIN_USERNAME
+    LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED, LOADING_STARTED, LOADING_DONE, REFRESH_TOKEN_REQUEST,
+    REFRESH_TOKEN, REFRESH_TOKEN_FAILED,
 } from '../constants'
 import {push} from 'react-router-redux';
 import {LOGIN_URL, PATH} from '../backend';
@@ -70,25 +71,6 @@ export function receiveProtectedData(data) {
 export function fetchProtectedDataRequest() {
     return {
         type: FETCH_PROTECTED_DATA_REQUEST
-    }
-}
-
-export function fetchProtectedData(token, url) {
-    return function (dispatch, state) {
-        dispatch(fetchProtectedDataRequest());
-        return fetch(PATH + url, {
-            credentials: 'include',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(response => response.json()).then(response => {
-            dispatch(receiveProtectedData(response.data));
-        }).catch(error => {
-            if(error.response.status === 401) {
-                dispatch(loginUserFailed(error));
-                dispatch(push('/login'));
-            }
-        })
     }
 }
 
@@ -159,12 +141,29 @@ export function fetchLastResearchFailed(err) {
     }
 }
 
-export function getUserName(username) {
-    localStorage.setItem('username', username);
+export function refreshTokenRequest() {
     return {
-        type: OBTAIN_USERNAME,
+        type: REFRESH_TOKEN_REQUEST
+    }
+}
+
+export function refreshToken(token) {
+    localStorage.setItem('token', token);
+    return {
+        type: REFRESH_TOKEN,
         payload: {
-            userName: username
+            token: token
+        }
+    }
+}
+
+export function refreshTokenFailed(err) {
+    localStorage.removeItem('token');
+    return {
+        type: REFRESH_TOKEN_FAILED,
+        payload: {
+            status: err.status,
+            statusText: err.statusText
         }
     }
 }

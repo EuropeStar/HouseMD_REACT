@@ -15,4 +15,6 @@ export const LAST_RESEARCH_FAILED = 14;
 export const FETCH_NOTIFICATIONS_FAILED = 15;
 export const LOADING_STARTED = 16;
 export const LOADING_DONE = 17;
-export const OBTAIN_USERNAME = 18;
+export const REFRESH_TOKEN_REQUEST = 18;
+export const REFRESH_TOKEN = 19;
+export const REFRESH_TOKEN_FAILED = 20;

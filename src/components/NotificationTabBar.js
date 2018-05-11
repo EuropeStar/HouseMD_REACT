@@ -7,6 +7,7 @@ import {
 } from "../actions";
 import SecondaryText from "./SecondaryText";
 import {PATH, URLS} from "../backend";
+import {checkTokenCloseToEXP} from "../utils/utils";
 
 class NotificationTabBar extends Component {
     constructor(props) {
@@ -16,14 +17,14 @@ class NotificationTabBar extends Component {
     componentDidMount() {
         this.props.fetchNotificationsRequest();
         let token = localStorage.getItem('token');
-        fetch(PATH + URLS.NOTIFICATIONS, {
+        fetch(PATH + URLS.DASHBOARD, {
             credentials: 'include',
             headers: {
                 'Authorization': `JWT ${token}`
             }
         })
             .then(resp => {
-                if (resp.status === 401) {
+                if (resp.status >= 400) {
                     this.props.fetchNotificationsFailed(resp.statusText);
                     this.props.loginUserFailed(resp);
                     throw Error(resp.statusText);
@@ -31,16 +32,15 @@ class NotificationTabBar extends Component {
             })
             .then(resp => resp.json())
             .then(resp => {
-                let all = resp.data;
+                let all = resp.notifications;
                 let un = all.map(x => {
                     if (!x.is_readed)
                         return x.id
                 });
                 this.props.fetchNotifications(all, un);
-            })
-            .catch(err => {
-                this.props.serverError(err);
-            })
+            }).catch(err => {
+
+        })
     }
 
     fetchAllNotifications() {
@@ -78,7 +78,6 @@ const mapDispatchToProps = (dispatch) => ({
     fetchNotifications: (data, unread) => dispatch(fetchNotifications(data, unread)),
     readNotification: (id) => dispatch(readNotification(id)),
     loginUserFailed: (err) => dispatch(loginUserFailed(err)),
-    serverError: (err) => dispatch(serverError(err)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationTabBar);
