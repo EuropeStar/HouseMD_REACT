@@ -11,7 +11,7 @@ import {
 } from "../actions";
 import {connect} from "react-redux";
 import {PATH, URLS} from "../backend";
-import {handleResponse} from "../utils/utils";
+import {errorHandle, handleResponse} from "../utils/utils";
 
 class Notifications extends Component {
     constructor(props) {
@@ -29,11 +29,7 @@ class Notifications extends Component {
             }
         })
             .then(resp => {
-                if (resp.status >= 400) {
-                    this.props.fetchNotificationsFailed(resp.statusText);
-                    this.props.loginUserFailed(resp);
-                    throw Error(resp.statusText);
-                }
+                errorHandle(resp, this.props.fetchNotificationsFailed, this)
             })
             .then(resp => resp.json())
             .then(resp => {

@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {fetchLastResearch, fetchLastResearchFailed, fetchLastResearchRequest} from "../actions";
 import {PATH, URLS} from "../backend";
 import Warn from "../components/Warn";
+import {errorHandle} from "../utils/utils";
 
 class ResearchHistory extends Component {
     constructor(props) {
@@ -28,11 +29,7 @@ class ResearchHistory extends Component {
             }
         })
             .then(resp => {
-                if (resp.status === 401) {
-                    this.props.fetchNotificationsFailed(resp.statusText);
-                    this.props.loginUserFailed(resp);
-                    throw Error(resp.statusText);
-                }
+                errorHandle(resp, this.props.fetchLastResearchFailed, this)
             })
             .then(resp => resp.json())
             .then(resp => {

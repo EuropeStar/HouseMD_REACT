@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {fetchLastResearch, fetchLastResearchFailed, fetchLastResearchRequest, loginUserFailed} from "../actions";
 import {PATH, URLS} from "../backend";
 import SecondaryText from "./SecondaryText";
+import {errorHandle} from "../utils/utils";
 
 class HistoryTabBar extends Component {
     constructor(props) {
@@ -21,11 +22,7 @@ class HistoryTabBar extends Component {
             }
         })
             .then(resp => {
-                if (resp.status >= 400) {
-                    this.props.fetchNotificationsFailed(resp.statusText);
-                    this.props.loginUserFailed(resp);
-                    throw Error(resp.statusText);
-                }
+                errorHandle(resp, this.props.fetchLastResearchFailed, this)
             })
             .then(resp => resp.json())
             .then(resp => {

@@ -13,7 +13,7 @@ import {
     refreshTokenRequest
 } from "./actions";
 import ResearchLoader from "./components/ResearchLoader";
-import {checkTokenCloseToEXP} from "./utils/utils";
+import {checkTokenCloseToEXP, errorHandle} from "./utils/utils";
 import {PATH} from "./backend";
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
         this.props.loadingDone();
     }
 
-    componentDidUpdate() {
+    componentWillUpdate() {
         if (this.props.isAuthenticated) {
             if (checkTokenCloseToEXP(this.props.exp)) {
                 this.props.refreshTokenRequest();
@@ -39,10 +39,7 @@ class App extends Component {
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({'token': `${token}`})
                 }).then(resp => {
-                    if (resp.status >= 400) {
-                        this.props.refreshTokenFailed(resp);
-                        throw Error(resp.statusText);
-                    }
+                    errorHandle(resp, this.props.refreshTokenFailed, this)
                 }).then(resp => {
                     this.props.refreshToken(resp.token)
                 }).catch(err => {

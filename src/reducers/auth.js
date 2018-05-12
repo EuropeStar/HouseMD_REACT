@@ -14,7 +14,10 @@ const initialState = {
     statusText: null,
     status: null,
     avatar: null,
-    exp: 0
+    exp: 0,
+    userId: null,
+    fullName: null,
+    isChief: false
 };
 
 export function auth(state = initialState, action) {
@@ -30,7 +33,8 @@ export function auth(state = initialState, action) {
                isAuthenticated: false,
                userName: null,
                token: null,
-               statusText: "Error " + action.payload.status + ": " + action.payload.statusText,
+               userId: null,
+               statusText: action.payload.statusText,
                status: action.payload.status
             });
         case LOGIN_USER_SUCCESS:
@@ -39,6 +43,9 @@ export function auth(state = initialState, action) {
                 authInProgress: false,
                 userName: parseJwt(action.payload.token).username,
                 exp: parseJwt(action.payload.token).exp,
+                userId: parseJwt(action.payload.token).user_id,
+                isChief: action.payload.user.is_chief,
+                fullName: action.payload.user.first_name + " " + action.payload.user.last_name,
                 token: action.payload.token,
                 statusText: 'You were successfully authenticated'
             });
@@ -46,7 +53,10 @@ export function auth(state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 token: null,
+                isChief: false,
+                fullName: null,
                 exp: 0,
+                userId: null,
                 userName: null,
                 statusText: 'You have been logged out'
             });
@@ -68,6 +78,7 @@ export function auth(state = initialState, action) {
                 authInProgress: false,
                 token: null,
                 exp: 0,
+                userId: null,
                 userName: null,
                 statusText: action.payload.status + ": " + action.payload.statusText,
                 status: action.payload.status

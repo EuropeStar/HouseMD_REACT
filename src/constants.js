@@ -18,3 +18,6 @@ export const LOADING_DONE = 17;
 export const REFRESH_TOKEN_REQUEST = 18;
 export const REFRESH_TOKEN = 19;
 export const REFRESH_TOKEN_FAILED = 20;
+export const PROFILE_SAVE_REQUEST = 21;
+export const PROFILE_UPDATED = 22;
+export const PROFILE_UPDATE_FAILED = 23;

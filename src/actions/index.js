@@ -7,11 +7,8 @@ import {
     RECEIVE_PROTECTED_DATA,
     CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
     LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED, LOADING_STARTED, LOADING_DONE, REFRESH_TOKEN_REQUEST,
-    REFRESH_TOKEN, REFRESH_TOKEN_FAILED,
+    REFRESH_TOKEN, REFRESH_TOKEN_FAILED, PROFILE_SAVE_REQUEST, PROFILE_UPDATED, PROFILE_UPDATE_FAILED,
 } from '../constants'
-import {push} from 'react-router-redux';
-import {LOGIN_URL, PATH} from '../backend';
-import jwtDecode from 'jwt-decode';
 
 export function loadingStarted() {
     return {
@@ -25,12 +22,13 @@ export function loadingDone() {
     }
 }
 
-export function loginUserSuccess(token) {
+export function loginUserSuccess(token, user) {
     localStorage.setItem("token", token);
     return {
         type: LOGIN_USER_SUCCESS,
         payload: {
-            token: token
+            token: token,
+            user: user
         }
     }
 }
@@ -161,6 +159,28 @@ export function refreshTokenFailed(err) {
     localStorage.removeItem('token');
     return {
         type: REFRESH_TOKEN_FAILED,
+        payload: {
+            status: err.status,
+            statusText: err.statusText
+        }
+    }
+}
+
+export function profileSaveRequest() {
+    return {
+        type: PROFILE_SAVE_REQUEST
+    }
+}
+
+export function profileUpdated() {
+    return {
+        type: PROFILE_UPDATED
+    }
+}
+
+export function profileUpdateFailed(err) {
+    return {
+        type: PROFILE_UPDATE_FAILED,
         payload: {
             status: err.status,
             statusText: err.statusText

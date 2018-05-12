@@ -17,5 +17,6 @@ export const URLS = {
     NOTIFICATIONS: '/notifications',
     USER_DATA: '/get_user_info',
     DASHBOARD: '/dashboard',
-    REFRESH_TOKEN: '/api_refresh_token'
+    REFRESH_TOKEN: '/api_refresh_token',
+    PROFILE: '/profile'
 };

@@ -32,13 +32,12 @@ class LoginForm extends Component {
             .then(resp => resp.json())
             .then(resp => {
                 if (resp.token && resp.token !== '') {
-                    this.props.loginSuccess(resp.token);
+                    this.props.loginSuccess(resp.token, resp.user);
                 }
                 else
                     this.props.loginFailed({
-                        response: {
-                            statusText: 'Неверный логин или пароль'
-                        }
+                        statusText: "Неверный логин или пароль",
+                        status: 400
                     });
 
             }).catch(err => {
@@ -102,7 +101,7 @@ const mapStateToProps = (state) => ({
 const dispatchToProps = (dispatch) => ({
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
-    loginSuccess: (token) => dispatch(loginUserSuccess(token)),
+    loginSuccess: (token, user) => dispatch(loginUserSuccess(token, user)),
 });
 
 export default connect(mapStateToProps, dispatchToProps)(LoginForm);

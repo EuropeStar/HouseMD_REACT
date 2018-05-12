@@ -12,6 +12,7 @@ import AddUser from "./AddUser";
 import Settings from "./Settings";
 import Administrations from "./Administrations";
 import NotFound from "./NotFound";
+import {connect} from "react-redux";
 
 class MainTemplate extends Component {
     constructor(props) {
@@ -19,7 +20,6 @@ class MainTemplate extends Component {
     }
 
     render() {
-
         const Routers = [
             {
                 path: '/dashboard',
@@ -46,19 +46,24 @@ class MainTemplate extends Component {
                 type: 'notifications',
                 component: () => <Notifications/>
             },
-            {
-                path: '/add_doctor',
-                title: 'Add doctor',
-                type: 'person_add',
-                component: () => <AddUser/>
-            },
-            {
-                path: '/administration',
-                title: 'Manage doctors',
-                type: 'group',
-                component: () => <Administrations/>
-            },
+
         ];
+        if (this.props.isChief) {
+            Routers.extend([
+                {
+                    path: '/add_doctor',
+                    title: 'Add doctor',
+                    type: 'person_add',
+                    component: () => <AddUser/>
+                },
+                {
+                    path: '/administration',
+                    title: 'Manage doctors',
+                    type: 'group',
+                    component: () => <Administrations/>
+                },
+            ])
+        }
         return (
             <FullHeightContainer container={'false'}>
                 <div>
@@ -87,4 +92,12 @@ class MainTemplate extends Component {
     }
 }
 
-export default MainTemplate;
+export const mapStateToProps = (state) => ({
+    isChief: state.auth.isChief
+});
+
+export const mapDispatchToProps = (dispatch) => ({
+
+});
+
+export default connect(mapStateToProps)(MainTemplate);

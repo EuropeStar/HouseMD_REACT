@@ -27,7 +27,7 @@ class Toolbar extends Component {
                     <div id="profile-view">
                         <Link to={'/profile'}>
                             <PhotoThumbnail url={STATIC_PATH + DEFAULT_IMG}/>
-                            <p id="nickname-tb">{this.props.userName}</p>
+                            <p id="nickname-tb">{this.props.fullName}</p>
                         </Link>
                     </div>
                     <ToolbarButtonList>
@@ -52,7 +52,7 @@ class Toolbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    userName: state.auth.userName,
+    fullName: state.auth.fullName,
     isAuthenticated: state.auth.isAuthenticated,
     avatar: state.auth.avatar
 });

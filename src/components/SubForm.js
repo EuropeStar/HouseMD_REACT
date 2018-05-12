@@ -36,6 +36,7 @@ class SubForm extends Component {
                     })
 
                 }
+                {this.props.children}
             </div>
         )
     }
