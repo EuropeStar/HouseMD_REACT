@@ -34,7 +34,7 @@ class PrivateProfileInformation extends Component {
             errorHandle(resp, this.props.profileUpdateFailed, this)
         })
             .then(resp => {
-                this.props.profileUpdated()
+                this.props.profileUpdated({first_name: name, last_name: last})
             })
             .catch(err => {console.log(err)})
     }
@@ -71,16 +71,16 @@ class PrivateProfileInformation extends Component {
 
 const mapStateToProps = (state) => ({
     token: state.auth.token,
-    updating: state.profile.updating,
-    success: state.profile.success,
-    statusText: state.profile.statusText,
+    updating: state.auth.updating,
+    success: state.auth.success,
+    statusText: state.auth.statusText,
     userId: state.auth.userId
 });
 
 const mapDispatchToProps = (dispatch) => ({
     loginUserFailed: (err) => dispatch(loginUserFailed(err)),
     profileUpdateRequest: () => dispatch(profileSaveRequest()),
-    profileUpdated: () => dispatch(profileUpdated()),
+    profileUpdated: (cred) => dispatch(profileUpdated(cred)),
     profileUpdateFailed: (err) => dispatch(profileUpdateFailed(err))
 });
 

@@ -5,7 +5,7 @@ import Field from './Field';
 import LinkOption from './LinkOption';
 import ButtonOption from './ButtonOption';
 import PostForm from './PostForm';
-import {loginUserFailed, loginUserRequest, loginUserSuccess} from "../actions";
+import {loginUserFailed, loginUserRequest, loginUserSuccess, obtainUserInfo} from "../actions";
 import {connect} from "react-redux";
 import {LOGIN_URL, PATH, URLS} from "../backend";
 import Loader from "./Loader";
@@ -32,7 +32,8 @@ class LoginForm extends Component {
             .then(resp => resp.json())
             .then(resp => {
                 if (resp.token && resp.token !== '') {
-                    this.props.loginSuccess(resp.token, resp.user);
+                    this.props.loginSuccess(resp.token);
+                    this.props.obtainUserInfo(resp.user)
                 }
                 else
                     this.props.loginFailed({
@@ -41,13 +42,11 @@ class LoginForm extends Component {
                     });
 
             }).catch(err => {
-                this.props.loginFailed({
-                    response: {
-                        status: 500,
-                        statusText: 'Ошибка интернет соедениения'
-                    }
-                });
-            })
+            this.props.loginFailed({
+                status: 500,
+                statusText: 'Ошибка интернет соедениения'
+            });
+        })
     }
 
     onLogin(e) {
@@ -61,7 +60,7 @@ class LoginForm extends Component {
         let type = '';
         if (this.props.status === undefined) {
             type = 'info'
-        }else if (this.props.status < 300) {
+        } else if (this.props.status < 300) {
             type = 'success';
         } else {
             type = 'danger'
@@ -72,10 +71,11 @@ class LoginForm extends Component {
     render() {
         return (
             <MaterialCard rd id="log-form">
-                { this.props.statusText?  this.showAlert() : null}
-                {this.props.authInProgress? <Loader/>:null}
+                {this.props.statusText ? this.showAlert() : null}
+                {this.props.authInProgress ? <Loader/> : null}
                 <PostForm>
-                    <Field label={'Имя пользователя'} placeholder={'house_md'} name={"login"} inputRef={el => this.logInRef = el}/>
+                    <Field label={'Имя пользователя'} placeholder={'house_md'} name={"login"}
+                           inputRef={el => this.logInRef = el}/>
                     <Field label={'Пароль'} placeholder={'Password'} name={'password'} type={'password'}
                            inputRef={el => this.passwordRef = el}/>
                     <div className="mt">
@@ -99,6 +99,7 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
+    obtainUserInfo: (info) => dispatch(obtainUserInfo(info)),
     loginRequest: () => dispatch(loginUserRequest()),
     loginFailed: (error) => dispatch(loginUserFailed(error)),
     loginSuccess: (token, user) => dispatch(loginUserSuccess(token, user)),

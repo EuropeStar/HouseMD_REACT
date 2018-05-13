@@ -7,7 +7,6 @@ import {createBrowserHistory} from 'history'
 import {notifications} from "./notifications";
 import {research} from "./research";
 import {loader} from "./loader";
-import {profile} from "./profile";
 
 export const history = createBrowserHistory();
 
@@ -19,7 +18,6 @@ const application = combineReducers({
     notifications,
     research,
     loader,
-    profile,
     routing: routerReducer,
 });
 
