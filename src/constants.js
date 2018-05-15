@@ -22,3 +22,7 @@ export const PROFILE_SAVE_REQUEST = 21;
 export const PROFILE_UPDATED = 22;
 export const PROFILE_UPDATE_FAILED = 23;
 export const OBTAIN_USER_INFO = 24;
+export const FETCH_SYMPTOMS = 25;
+export const SEND_RESEARCH_REQUEST = 26;
+export const PROBABILITY_CALCULATED = 27;
+export const FETCH_DATA_FAILED = 28;

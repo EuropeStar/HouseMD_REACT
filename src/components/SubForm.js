@@ -22,6 +22,7 @@ class SubForm extends Component {
                                     type={key.type}
                                     name={key.name}
                                     required={key.required}
+                                    inputRef={key.inputRef}
                                 />;
                             case 'dropdown':
                                 return <DropDownField
@@ -31,6 +32,7 @@ class SubForm extends Component {
                                     name={key.name}
                                     list={key.list}
                                     required={key.required}
+                                    inputRef={key.inputRef}
                                 />
                         }
                     })

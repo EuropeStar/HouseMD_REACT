@@ -42,7 +42,7 @@ function SignIn(props) {
                         <div className='col-lg-7'>
                             <TextView/>
                         </div>
-                        <div className="col-lg-3 offset-lg-1" id="login-form">
+                        <div className="col-lg-4 offset-lg-1" id="login-form">
                             <LoginForm/>
                         </div>
                     </div>

@@ -18,5 +18,7 @@ export const URLS = {
     USER_DATA: '/get_user_info',
     DASHBOARD: '/dashboard',
     REFRESH_TOKEN: '/api_refresh_token',
-    PROFILE: '/profile'
+    PROFILE: '/profile',
+    SEND_EXAMINATION: '/save-examination',
+    SYMPTOMS: '/symptoms'
 };

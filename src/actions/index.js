@@ -8,6 +8,7 @@ import {
     CONNECTING_SERVER_ERROR, FETCH_NOTIFICATIONS, READ_NOTIFICATION, LAST_RESEARCH_FETCH, LAST_RESEARCH_REQUEST,
     LAST_RESEARCH_FAILED, FETCH_NOTIFICATIONS_FAILED, LOADING_STARTED, LOADING_DONE, REFRESH_TOKEN_REQUEST,
     REFRESH_TOKEN, REFRESH_TOKEN_FAILED, PROFILE_SAVE_REQUEST, PROFILE_UPDATED, PROFILE_UPDATE_FAILED, OBTAIN_USER_INFO,
+    FETCH_SYMPTOMS, SEND_RESEARCH_REQUEST, PROBABILITY_CALCULATED, FETCH_DATA_FAILED,
 } from '../constants'
 
 export function loadingStarted() {
@@ -202,6 +203,39 @@ export function obtainUserInfo(info) {
         }
     }
 }
-{
 
+export function fetchSymptomsRequest() {
+    return {
+        type: FETCH_PROTECTED_DATA_REQUEST
+    }
+}
+
+export function fetchSymptomsSuccess(symptoms) {
+    return {
+        type: FETCH_SYMPTOMS,
+        payload: {
+            symptoms: symptoms
+        }
+    }
+}
+
+export function sendResearchRequest() {
+    return {
+        type: SEND_RESEARCH_REQUEST
+    }
+}
+
+export function probabilityCalculated(probs) {
+    return {
+        type: PROBABILITY_CALCULATED,
+        payload: {
+            probabilities: probs
+        }
+    }
+}
+
+export function fetchDataFailed() {
+    return {
+        type: FETCH_DATA_FAILED
+    }
 }

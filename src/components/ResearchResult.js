@@ -11,14 +11,12 @@ import ListDivider from "./ListDivider";
 
 
 function ResearchResult(props) {
+    const lbls = props.data.map(key => {return key.disease.name});
+    const probs = props.data.map(key => {return key.prob});
     const data = {
-        labels: [
-            'Red',
-            'Green',
-            'Yellow'
-        ],
+        labels: lbls,
         datasets: [{
-            data: [300, 50, 100],
+            data: probs,
             backgroundColor: [
                 '#FF6384',
                 '#36A2EB',
@@ -32,12 +30,8 @@ function ResearchResult(props) {
         }]
     };
     const chart = <Pie data={data} width={1} height={1}/>;
-    const ProbabilityList = [];
-    const buildListItems = [{name: 'Болезнь 1', 'P': '60%'}, {name: 'Болезнь 2', 'P': '30%'}, {
-        name: 'Болезнь 3',
-        'P': '10%'
-    }].map((key) => {
-        return <DiseaseListItem item={key}/>
+    const buildListItems = props.data.map((key, index) => {
+        return <DiseaseListItem key={index} item={key}/>
     });
     return (
         <div>
@@ -47,6 +41,8 @@ function ResearchResult(props) {
                 <div className="row">
                     <div className='col-lg-6'>
                         <ListView listContent={buildListItems}/>
+                        <h4 className={'text-centered'}>Описание</h4>
+                        <div className={'hr'} style={{marginBottom: '10px'}}></div>
                     </div>
                     <div className='col-lg-3 offset-1'>
                         <div className="row">
@@ -59,7 +55,6 @@ function ResearchResult(props) {
 
             <OptionList>
                 <ButtonOption type={'error'} title={'Запросить подтверждение'}><MiniIcon type={'reply'}/></ButtonOption>
-                <ButtonOption type={'secondary'} title={'Сохранить'}><MiniIcon type={'save'}/></ButtonOption>
                 <ButtonOption type={'access'} title={'Распечатать результат'}><MiniIcon type={'print'}/></ButtonOption>
             </OptionList>
 

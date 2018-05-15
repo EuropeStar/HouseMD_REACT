@@ -390,3 +390,17 @@ input::-webkit-inner-spin-button {
     left: 40%;
     font-size: 160px;
 }
+
+.dropdown-menu {
+    max-height: 500px ;
+    overflow: scroll ;
+}
+
+.btn-group {
+    display: block;
+}
+
+.m-drop-btn {
+    overflow-x: hidden;
+    max-width: 100%;
+}

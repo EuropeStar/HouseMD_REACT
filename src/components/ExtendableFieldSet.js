@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import SubForm from "./SubForm";
+import $ from 'jquery';
 import Field from "./Field";
 import TransparentButton from "./TransparentButton";
+import DropDownField from "./DropdrownField";
 
 class ExtendableFieldSet extends Component {
     constructor(props) {
@@ -30,7 +31,9 @@ class ExtendableFieldSet extends Component {
         let lst = []; // todo make with existing field array
         for (let i = lst.length; i < this.state.fieldsLen; i++) {
             lst.push({
-                name: 'symptom' + i
+                name: this.props.name + i,
+                special: 'dropdown',
+                list: this.props.list
             })
         }
         return lst;
@@ -58,6 +61,16 @@ class ExtendableFieldSet extends Component {
                                         name={key.name}
                                         required={key.required}
                                     />;
+                                case 'dropdown':
+                                    return <DropDownField
+                                        key={index}
+                                        label={key.label}
+                                        type={key.type}
+                                        name={key.name}
+                                        list={key.list}
+                                        globalName={this.props.name}
+                                        required={key.required}
+                                    />
                             }
                         })
 

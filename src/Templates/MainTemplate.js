@@ -23,26 +23,26 @@ class MainTemplate extends Component {
         const Routers = [
             {
                 path: '/dashboard',
-                title: 'Dashboard',
+                title: 'Главная доска',
                 type: 'home',
                 component: () => <Dashboard/>
             },
             {
                 path: '/research',
-                title: 'Research',
+                title: 'Исследование',
                 type: 'search',
                 component: () => <Research/>
             },
             {
                 path: '/history',
-                title: 'Research history',
+                title: 'История исследований',
                 type: 'assignment',
                 component: () => <ResearchHistory/>
             },
 
             {
                 path: '/notifications',
-                title: 'Notifications',
+                title: 'Уведомления',
                 type: 'notifications',
                 component: () => <Notifications/>
             },
@@ -52,13 +52,13 @@ class MainTemplate extends Component {
             Routers.extend([
                 {
                     path: '/add_doctor',
-                    title: 'Add doctor',
+                    title: 'Добавить доктора',
                     type: 'person_add',
                     component: () => <AddUser/>
                 },
                 {
                     path: '/administration',
-                    title: 'Manage doctors',
+                    title: 'Управление персоналом',
                     type: 'group',
                     component: () => <Administrations/>
                 },
