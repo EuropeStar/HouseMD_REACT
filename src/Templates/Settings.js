@@ -27,7 +27,7 @@ class Settings extends Component {
                     <div className={'row'}>
                         <div className={'col-lg-4 offset-lg-4'}>
                             <PrivateProfileInformation/>
-                            <AccountProfileInformation/>
+                            {/*<AccountProfileInformation/>*/}
                         </div>
                     </div>
                 </MaterialCard>

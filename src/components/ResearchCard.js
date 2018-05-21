@@ -15,30 +15,39 @@ import {connect} from "react-redux";
 import {PATH, URLS} from "../backend";
 import {
     fetchDataFailed,
-    fetchSymptomsRequest, fetchSymptomsSuccess, loginUserFailed, probabilityCalculated,
+    fetchResearchMetaDataRequest, fetchResearchMetaDataSuccess, loginUserFailed, probabilityCalculated,
     sendResearchRequest
 } from "../actions";
 import {errorHandle} from "../utils/utils";
+import Select from 'react-select'
+import 'react-select/dist/react-select.css';
+import AnalysisFieldSet from "./AnalysisFieldSet";
+
 
 class ResearchCard extends Component {
     constructor(props) {
         super(props);
         this.countProbabilities = this.countProbabilities.bind(this);
+        this.state = {
+            symptoms: '',
+            analysis: ''
+        }
     }
 
     countProbabilities(e) {
-        this.props.sendResearchRequest();
-        fetch(PATH + URLS.SEND_EXAMINATION, {
-            method: 'POST',
-            headers: {'Authorization': `JWT ${this.props.token}`,
-                'Content-Type': 'application/json'},
-            body: JSON.stringify(this.bindResultFields())
-        })
-            .then(resp => errorHandle(resp, this.props.fetchDataFailed, this))
-            .then(resp => resp.json())
-            .then(resp => {
-                this.props.probabilitiesCalculated(resp.diseases)
-            }).catch(reason => {});
+        console.log(this.bindResultFields())
+        // this.props.sendResearchRequest();
+        // fetch(PATH + URLS.SEND_EXAMINATION, {
+        //     method: 'POST',
+        //     headers: {'Authorization': `JWT ${this.props.token}`,
+        //         'Content-Type': 'application/json'},
+        //     body: JSON.stringify(this.bindResultFields())
+        // })
+        //     .then(resp => errorHandle(resp, this.props.fetchDataFailed, this))
+        //     .then(resp => resp.json())
+        //     .then(resp => {
+        //         this.props.probabilitiesCalculated(resp.diseases)
+        //     }).catch(reason => {});
         e.preventDefault();
         e.stopPropagation();
     }
@@ -48,8 +57,8 @@ class ResearchCard extends Component {
     }
 
     prefetchInfo() {
-        this.props.fetchSymptomsRequest();
-        fetch(PATH + URLS.SYMPTOMS, {
+        this.props.fetchResearchMetaDataRequest();
+        fetch(PATH + URLS.RESEARCH_META, {
             headers: {
                 'Authorization': `JWT ${this.props.token}`,
                 'Content-Type': 'application/json',
@@ -58,7 +67,7 @@ class ResearchCard extends Component {
             .then(resp => errorHandle(resp, null, this))
             .then(resp => resp.json())
             .then(resp => {
-                this.props.fetchSymptomsSuccess(resp)
+                this.props.fetchResearchMetaDataSuccess(resp);
             }).catch(resp => {
         })
     }
@@ -68,8 +77,8 @@ class ResearchCard extends Component {
             patient: this.fio.value,
             age: this.age.value,
             sex: this.sex.value,
-            symptoms: this.getSymptoms(),
-            analysis: [],
+            symptoms: this.state.symptoms,
+            analysis: this.state.analysis
         }
     }
 
@@ -77,13 +86,12 @@ class ResearchCard extends Component {
         this.props.fetchDataFailed();
     }
 
-    getSymptoms() {
-        let out = [];
-        let ojb = $('.gather-symptom');
-        $.each(ojb, function (el, key) {
-            out.push(key.value)
-        });
-        return out;
+    getSymptoms(item) {
+        this.setState({symptoms: item})
+    }
+
+    getAnalysis(item) {
+        this.setState({analysis: item})
     }
 
     showResult() {
@@ -91,7 +99,6 @@ class ResearchCard extends Component {
             if (this.props.isCalculating) {
                 return <ResearchLoader/>
             } else {
-                console.log(this.props.probabilities);
                 return <ResearchResult data={this.props.probabilities}/>
             }
         }
@@ -113,7 +120,6 @@ class ResearchCard extends Component {
                 required: true,
                 special: 'dropdown',
                 list: [
-                    {id: 0, name: '0'},
                     {id: 1, name: '< 1 года'},
                     {id: 2, name: '1 -5 лет'},
                     {id: 3, name: '5 - 18 лет'},
@@ -135,12 +141,35 @@ class ResearchCard extends Component {
         return (
             <MaterialCard id='research'>
                 <div className="row">
-                    <div className="col-lg-6 offset-3">
+                    <div className="col-lg-5">
                         <SubForm title={'Информация о пациенте'} fieldList={personalFieldList}/>
                     </div>
-                    <div className="col-lg-12">
-                        <ExtendableFieldSet title={'Симптомы'} list={this.props.symptoms || []} name={'symptom'}/>
-                        <ExtendableFieldSet title={'Анализы'} list={[]} combiner={this.analysis} name={'analysis'}/>
+                    <div className="col-lg-5 offset-1" style={{marginBottom: '10px'}}>
+                        <h4 className={'text-centered'}>Симптомы и Анализы</h4>
+                        <div className={'hr'} style={{marginBottom: '10px'}}></div>
+                        <label className={'form-lbl'}>Симптомы</label>
+                        {this.props.symptoms !== undefined ?
+                            <Select
+                                name={'symptom-select'}
+                                onChange={this.getSymptoms.bind(this)}
+                                value={this.state.symptoms}
+                                multi={true}
+                                simpleValue={true}
+                                className={'form-control field'}
+                                options={
+                                    this.props.symptoms.reduce((cur, v, ind, arr) => {
+                                        cur.push({value: v.id, label: v.name}); return cur
+                                    }, [])
+                                }
+                            /> : null
+                        }
+                        <label className={'form-lbl'}>Анализы</label>
+                        {this.props.analysis !== undefined ?
+                            <AnalysisFieldSet
+                                onChange={this.getAnalysis.bind(this)}
+                                analysis={this.props.analysis}
+                            />: null
+                        }
                     </div>
                 </div>
                 <div className={'row centered'}>
@@ -162,6 +191,7 @@ class ResearchCard extends Component {
 const mapStateToProps = (state) => ({
     token: state.auth.token,
     symptoms: state.data.symptoms,
+    analysis: state.data.analysis,
     isFetching: state.data.isFetching,
     isCalculating: state.data.isCalculating,
     probabilities: state.data.probabilities,
@@ -169,8 +199,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchSymptomsRequest: () => dispatch(fetchSymptomsRequest()),
-    fetchSymptomsSuccess: (symptoms) => dispatch(fetchSymptomsSuccess(symptoms)),
+    fetchResearchMetaDataRequest: () => dispatch(fetchResearchMetaDataRequest()),
+    fetchResearchMetaDataSuccess: (resp) => dispatch(fetchResearchMetaDataSuccess(resp)),
     loginUserFailed: (err) => dispatch(loginUserFailed(err)),
     sendResearchRequest: () => dispatch(sendResearchRequest()),
     probabilitiesCalculated: (probs) => dispatch(probabilityCalculated(probs)),

@@ -22,7 +22,8 @@ export function data(state = initialState, action) {
         case FETCH_SYMPTOMS:
             return Object.assign({}, state, {
                 isFetching: false,
-                symptoms: action.payload.symptoms
+                symptoms: action.payload.symptoms,
+                analysis: action.payload.analysis
             });
         case SEND_RESEARCH_REQUEST:
             return Object.assign({}, state, {

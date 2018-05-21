@@ -20,5 +20,5 @@ export const URLS = {
     REFRESH_TOKEN: '/api_refresh_token',
     PROFILE: '/profile',
     SEND_EXAMINATION: '/save-examination',
-    SYMPTOMS: '/symptoms'
+    RESEARCH_META: '/research_meta'
 };

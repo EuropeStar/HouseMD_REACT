@@ -204,17 +204,18 @@ export function obtainUserInfo(info) {
     }
 }
 
-export function fetchSymptomsRequest() {
+export function fetchResearchMetaDataRequest() {
     return {
         type: FETCH_PROTECTED_DATA_REQUEST
     }
 }
 
-export function fetchSymptomsSuccess(symptoms) {
+export function fetchResearchMetaDataSuccess(resp) {
     return {
         type: FETCH_SYMPTOMS,
         payload: {
-            symptoms: symptoms
+            symptoms: resp.symptoms,
+            analysis: resp.analysis
         }
     }
 }
