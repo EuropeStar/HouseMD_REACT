@@ -18,10 +18,12 @@ import {
     fetchResearchMetaDataRequest, fetchResearchMetaDataSuccess, loginUserFailed, probabilityCalculated,
     sendResearchRequest
 } from "../actions";
-import {errorHandle} from "../utils/utils";
+import {errorHandle, toAnalysisConverter} from "../utils/utils";
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
-import AnalysisFieldSet from "./AnalysisFieldSet";
+import AnalysisContainer from "../components/AnalysisContainer";
+
+
 
 
 class ResearchCard extends Component {
@@ -35,19 +37,27 @@ class ResearchCard extends Component {
     }
 
     countProbabilities(e) {
-        console.log(this.bindResultFields())
-        // this.props.sendResearchRequest();
-        // fetch(PATH + URLS.SEND_EXAMINATION, {
-        //     method: 'POST',
-        //     headers: {'Authorization': `JWT ${this.props.token}`,
-        //         'Content-Type': 'application/json'},
-        //     body: JSON.stringify(this.bindResultFields())
-        // })
-        //     .then(resp => errorHandle(resp, this.props.fetchDataFailed, this))
-        //     .then(resp => resp.json())
-        //     .then(resp => {
-        //         this.props.probabilitiesCalculated(resp.diseases)
-        //     }).catch(reason => {});
+        if (this.isValid()) {
+            console.log(this.bindResultFields());
+            this.props.sendResearchRequest();
+            fetch(PATH + URLS.SEND_EXAMINATION, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `JWT ${this.props.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.bindResultFields())
+            })
+                .then(resp => errorHandle(resp, this.props.fetchDataFailed, this))
+                .then(resp => resp.json())
+                .then(resp => {
+                    this.props.probabilitiesCalculated(resp.diseases)
+                }).catch(reason => {
+            });
+        } else {
+            this.props.fetchDataFailed();
+            alert("Incorrect fields")
+        }
         e.preventDefault();
         e.stopPropagation();
     }
@@ -72,13 +82,17 @@ class ResearchCard extends Component {
         })
     }
 
+    isValid() {
+        return this.state.patient !== "" && this.state.symptoms.length !== 0
+    }
+
     bindResultFields() {
         return {
             patient: this.fio.value,
             age: this.age.value,
             sex: this.sex.value,
             symptoms: this.state.symptoms,
-            analysis: this.state.analysis
+            analysis: toAnalysisConverter(this.state.analysis)
         }
     }
 
@@ -165,10 +179,10 @@ class ResearchCard extends Component {
                         }
                         <label className={'form-lbl'}>Анализы</label>
                         {this.props.analysis !== undefined ?
-                            <AnalysisFieldSet
-                                onChange={this.getAnalysis.bind(this)}
+                            <AnalysisContainer
                                 analysis={this.props.analysis}
-                            />: null
+                                onChange={this.getAnalysis.bind(this)}
+                            /> : null
                         }
                     </div>
                 </div>

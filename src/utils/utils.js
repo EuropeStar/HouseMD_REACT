@@ -8,7 +8,7 @@ export function parseJwt(token) {
 
 export function checkTokenCloseToEXP(exp) {
     let time = exp * 1000 - new Date().getTime();
-    return time < REFRESH_TIME
+    return true //time < REFRESH_TIME
 }
 
 export function errorHandle(resp, dispatch, component) {
@@ -21,4 +21,8 @@ export function errorHandle(resp, dispatch, component) {
     } else {
         return resp;
     }
+}
+
+export function toAnalysisConverter(analysis) {
+    return analysis.map(val => { return {id: val.value, value: val.res} })
 }

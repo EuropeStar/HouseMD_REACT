@@ -22,5 +22,3 @@ const application = combineReducers({
 });
 
 export const store = createStore(application, applyMiddleware(middleware));
-
-store.subscribe((store) => console.log(store));

@@ -36,7 +36,7 @@ class PrivateProfileInformation extends Component {
             .then(resp => {
                 this.props.profileUpdated({first_name: name, last_name: last})
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {})
     }
 
     componentDidMount() {
@@ -51,7 +51,7 @@ class PrivateProfileInformation extends Component {
                 this.firstName.value = resp.first_name;
                 this.lastName.value = resp.last_name;
             })
-            .catch(err => {console.log(err)})
+            .catch(err => {})
     }
 
     render() {
