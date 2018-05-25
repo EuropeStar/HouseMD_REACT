@@ -24,7 +24,6 @@ function TextView() {
                 pharetra interdum nulla.</p>
             <ul id={'image_list'}>
                 <li className={'linear'}><PhotoThumbnail url={STATIC_PATH + '/img/preformance.png'}/></li>
-                <li className={'linear'}><PhotoThumbnail url={STATIC_PATH + '/img/speed.jpg'}/></li>
                 <li className={'linear'}><PhotoThumbnail url={STATIC_PATH + '/img/verify.png'}/></li>
             </ul>
         </div>

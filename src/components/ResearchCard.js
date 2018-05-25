@@ -190,7 +190,7 @@ class ResearchCard extends Component {
                 </div>
                 <div className={'row centered'}>
                     <OptionList>
-                        <ButtonOption title={'Расчитать'}
+                        <ButtonOption title={'Рассчитать'}
                                       type={'access'}
                                       handleClick={this.countProbabilities}><MiniIcon
                             type={'search'}/></ButtonOption>
