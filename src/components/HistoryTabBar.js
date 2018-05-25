@@ -12,7 +12,7 @@ class HistoryTabBar extends Component {
         super(props);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchLastResearchRequest();
         let token = localStorage.getItem('token');
         fetch(PATH + URLS.DASHBOARD, {
@@ -21,13 +21,13 @@ class HistoryTabBar extends Component {
                 'Authorization': `JWT ${token}`
             }
         })
-            .then(resp => {
-                errorHandle(resp, this.props.fetchLastResearchFailed, this)
-            })
+            // .then(resp => {
+            //     errorHandle(resp, this.props.fetchLastResearchFailed, this)
+            // })
             .then(resp => resp.json())
             .then(resp => {
                 this.props.fetchLastResearch(resp.examinations)
-            }).catch(err => this.props.fetchLastResearchFailed(err))
+            }).catch(err => console.log(err))
     }
 
     fetchLatestHistory() {

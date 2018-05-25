@@ -3,7 +3,7 @@ import MaterialCard from "./MaterialCard";
 
 function HistoryItem(props) {
     /*
-    title: 'Исследование №123 - Иван Иванов',
+                title: 'Исследование №123 - Иван Иванов',
                 propKeys: {
                     'Симптомы': ['Кашель', 'Головная болль', 'Температура'],
                     'Противопоказания': ['Противо1', 'Противо2', 'Противо3'],
@@ -17,15 +17,18 @@ function HistoryItem(props) {
         <div className={'item-bar'}>
             <MaterialCard>
                 <div className={'row'}>
+                        <span style={{fontSize: '40px', color: '#007bff'}} className={'material-icons'}>assignment</span><h2 style={{color: '#323232'}}>{`Исследование №${props.item.id}: ${props.item.patient}`}</h2>
+
                     <div className={'col-lg-10'}>
-                        <ul className={'notif-inline-title'}>
-                            <li className={'linear no-mar'}><span style={{fontSize: '40px', color: props.item.color}} className={'material-icons'}>{props.item.img}</span></li>
-                            <li className={'linear no-mar'}><h2 style={{color: '#323232'}}>{props.item.title}</h2></li>
-                        </ul>
+                        <h4><strong>Симптомы:</strong></h4>
+                            <p style={{fontSize: '21px'}}>
+                                {props.item.symptoms.map(value => {return `${value.name}, \n`})}
+                            </p>
+                        <h4><strong>Анализы:</strong></h4>
                         <p style={{fontSize: '21px'}}>
-                            {Object.keys(props.item.propKeys).map((key) => {return key + ": " + props.item.propKeys[key].join(', ') + '\n'})}
+                            {props.item.analysis.map(value => {return `${value.name.name}, \n`})}
                         </p>
-                        <div className={'in-date'}>{props.item.date}</div>
+                        <div className={'in-date'}>{new Date(props.item.date_time).toLocaleString()}</div>
                     </div>
                     <div className={'col-lg-2'}>
                         <div style={{position: 'absolute', bottom: '0'}}>

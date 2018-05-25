@@ -18,7 +18,7 @@ import {
     fetchResearchMetaDataRequest, fetchResearchMetaDataSuccess, loginUserFailed, probabilityCalculated,
     sendResearchRequest
 } from "../actions";
-import {errorHandle, toAnalysisConverter} from "../utils/utils";
+import {errorHandle, toAnalysisConverter, toSymptomsConverter} from "../utils/utils";
 import Select from 'react-select'
 import 'react-select/dist/react-select.css';
 import AnalysisContainer from "../components/AnalysisContainer";
@@ -31,8 +31,9 @@ class ResearchCard extends Component {
         super(props);
         this.countProbabilities = this.countProbabilities.bind(this);
         this.state = {
-            symptoms: '',
-            analysis: ''
+            symptoms: [],
+            analysis: [],
+            ex_id: null
         }
     }
 
@@ -51,7 +52,8 @@ class ResearchCard extends Component {
                 .then(resp => errorHandle(resp, this.props.fetchDataFailed, this))
                 .then(resp => resp.json())
                 .then(resp => {
-                    this.props.probabilitiesCalculated(resp.diseases)
+                    this.props.probabilitiesCalculated(resp.diseases);
+                    this.setState({ex_id: resp.id})
                 }).catch(reason => {
             });
         } else {
@@ -91,7 +93,7 @@ class ResearchCard extends Component {
             patient: this.fio.value,
             age: this.age.value,
             sex: this.sex.value,
-            symptoms: this.state.symptoms,
+            symptoms: toSymptomsConverter(this.state.symptoms),
             analysis: toAnalysisConverter(this.state.analysis)
         }
     }
@@ -113,7 +115,7 @@ class ResearchCard extends Component {
             if (this.props.isCalculating) {
                 return <ResearchLoader/>
             } else {
-                return <ResearchResult data={this.props.probabilities}/>
+                return <ResearchResult data={this.props.probabilities} ex_id={this.state.ex_id}/>
             }
         }
     }

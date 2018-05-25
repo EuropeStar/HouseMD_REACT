@@ -26,3 +26,7 @@ export function errorHandle(resp, dispatch, component) {
 export function toAnalysisConverter(analysis) {
     return analysis.map(val => { return {id: val.value, value: val.res} })
 }
+
+export function toSymptomsConverter(symptoms) {
+    return symptoms.split(',');
+}
